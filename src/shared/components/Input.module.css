@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .container {
     display: flex;
     flex-direction: column;
@@ -42,3 +43,39 @@
 .input:hover {
     border-color: #999;
 }
+=======
+input {
+    width: 300px;
+    height: 30px;
+    
+    border: none;
+    outline: none;
+    border-bottom: 1.5px solid;
+
+    padding-left: 20px;
+    padding-bottom: 5px;
+
+    transition: border-bottom-color 0.3s ease-in-out;
+} 
+
+input:hover {
+    border-bottom-color: red;
+}
+
+input::placeholder {
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+
+    transition: color 0.3s ease, font-size 0.3s ease;
+}
+
+input:focus {
+    border-bottom-color: blue;
+}
+
+input:focus::placeholder {
+    font-size: 17px;
+}
+
+>>>>>>> 221f97558ab968aecd0722f73456aa28acfef4ed

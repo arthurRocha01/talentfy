@@ -1,18 +1,23 @@
-button {
-  background: linear-gradient(90deg, #1900ff, #10009e, #000000);
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 25px;
-  font-size: 16px;
-  cursor: pointer;
-  width: 70%;
+.button {
+    width: 150px;
+    padding: 13px 5px;
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ddd; 
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
-button:hover {
-  background: linear-gradient(90deg, #000000, #10009e, #1900ff);
+.button:hover {
+    background-color: #007bff;
+    color: #fff;
+    padding: 13px 5px;
+    box-shadow: 0 8px 15px rgba(0, 123, 255, 0.4), 0 4px 6px rgba(0, 0, 0, 0.15);
 }
 
-button:active {
-  transform: scale(0.98);
+.button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

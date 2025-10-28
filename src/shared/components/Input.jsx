@@ -1,9 +1,8 @@
 import styles from './Input.module.css';
 
-export const Input = ({ text, placeholder, type = "text", onClick, onChange, value }) => {
+export const Input = ({ placeholder, type = "text", onClick, onChange, value }) => {
     return (
         <div className={styles.container}>
-            {text && <label className={styles.label}>{text}</label>}
             <input
                 className={styles.input}
                 type={type}
@@ -12,7 +11,7 @@ export const Input = ({ text, placeholder, type = "text", onClick, onChange, val
                 onChange={onChange}
                 value={value}
             />
-        </div>
+        </div> 
     );
 };
 
