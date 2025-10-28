@@ -1,9 +1,11 @@
 import { Input } from "../../shared/components/Input";
+import { Navbar } from "../../shared/components/Navbar";
 
 export const Home = () => {
     return (
         <>
-            <Input text="Input" placeholder="input..." type="text" />
+            <Navbar />
+            {/* <Input text="Input" placeholder="input..." type="text" /> */}
         </>
     );
 }
