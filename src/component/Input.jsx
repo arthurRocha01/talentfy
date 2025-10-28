@@ -15,3 +15,5 @@ export const Input = ({ text, placeholder, type = "text", onClick, onChange, val
         </div>
     );
 };
+
+
