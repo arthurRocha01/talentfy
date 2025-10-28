@@ -11,6 +11,6 @@ export const Input = ({ placeholder, type = "text", onClick, onChange, value }) 
                 onChange={onChange}
                 value={value}
             />
-        </div>
+        </div> 
     );
 };

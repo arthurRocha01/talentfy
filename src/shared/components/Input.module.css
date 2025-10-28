@@ -10,7 +10,7 @@ input {
     padding-bottom: 5px;
 
     transition: border-bottom-color 0.3s ease-in-out;
-}
+} 
 
 input:hover {
     border-bottom-color: red;
