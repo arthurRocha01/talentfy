@@ -1,0 +1,51 @@
+.containerLogo {
+  width: auto;
+  max-width: calc(450px * var(--size-factor));
+  min-width: calc(300px * var(--size-factor));
+  height: auto;
+  padding: calc(15px * var(--size-factor)) calc(25px * var(--size-factor));
+  border: 2px solid #333;
+  border-radius: 10px;
+  background-color: #f4f4f4;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: calc(15px * var(--size-factor));
+}
+
+.containerLogo h1 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: calc(55px * var(--size-factor));
+  font-weight: 900;
+  color: #000;
+  margin: 0;
+  line-height: 1;
+}
+
+.containerLogo span {
+  font-family: 'Times New Roman', Times, serif;
+  color: #101994;
+  margin-left: calc(2px * var(--size-factor));
+  font-size: calc(60px * var(--size-factor));
+  letter-spacing: calc(-2px * var(--size-factor));
+  font-weight: 900;
+  line-height: 1;
+}
+
+.containerLogo i {
+  font-size: calc(30px * var(--size-factor));
+  color: #555;
+  position: relative;
+  top: calc(-15px * var(--size-factor));
+  left: calc(45px * var(--size-factor));
+  align-self: center;
+  margin: 0;
+}          
+
+.containerLogo i:nth-child(2) {
+  font-size: calc(25px * var(--size-factor));
+  top: calc(-30px * var(--size-factor));
+  left: calc(15px * var(--size-factor));
+  margin-left: 0;
+  transform: none;
+}
