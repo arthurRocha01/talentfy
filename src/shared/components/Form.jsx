@@ -1,14 +1,14 @@
-import styles from './Button.module.css';
-import { Input } from './Input';
-import { Button } from './Button';
+import styles from './Form.module.css';
+import { Input } from './Input.jsx';
+import { Button } from './Button.jsx';
 
 export const Form = () => {
     return (
         <div className={styles.container}>
-            <Input placeholder="Input..." />
-            <Input placeholder="Input..." />
+            <h3>Faça o seu login!</h3>
+            <Input placeholder="Email" />
+            <Input placeholder="Senha" type="password" />
             <Button text="Enviar" />
         </div>
-
     );
 }

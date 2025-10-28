@@ -1,9 +1,14 @@
 import { Form } from '../../shared/components/Form.jsx';
+import { Navbar } from '../../shared/components/Navbar.jsx';
+import styles from './Login.module.css';
 
 export const Login = () => {
     return (
-        <div className="container">
-            <Form />
-        </div>
+        <>
+            <Navbar />
+            <div className={styles.container}>
+                <Form />
+            </div>
+        </>
     );
 }

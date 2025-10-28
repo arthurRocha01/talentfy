@@ -1,31 +1,30 @@
 input {
     width: 300px;
     height: 30px;
-    
-    border: none;
     outline: none;
-    border-bottom: 1.5px solid;
-
     padding-left: 20px;
-    padding-bottom: 5px;
-
+    padding-bottom: 2.5px;
     transition: border-bottom-color 0.3s ease-in-out;
+    border: 1.8px solid #000000;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-bottom: 10px;
 } 
 
 input:hover {
-    border-bottom-color: red;
-}
+    border-color: #101994;
+}   
 
 input::placeholder {
+    color: #999;
     font-size: 15px;
-    font-weight: 800;
-    letter-spacing: 0.8px;
-
+    font-weight: 500;
     transition: color 0.3s ease, font-size 0.3s ease;
 }
 
 input:focus {
-    border-bottom-color: blue;
+    border: 2px solid #101994;
+    outline: none;
 }
 
 input:focus::placeholder {

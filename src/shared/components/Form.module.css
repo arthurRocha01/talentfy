@@ -3,5 +3,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 80vh;
+}
+
+.container h3 {
+    margin-bottom: 20px;
+    color: #060F4C;
 }
