@@ -1,0 +1,44 @@
+.button {
+    border: 2.5px solid #060F4C;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
+    color: #060F4C;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    height: 50px;
+    min-width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    font-family: Arial, sans-serif;
+}
+
+.button:hover {
+    background: #060F4C;
+    color: #ffffff;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2.5px);
+}
+
+.button:focus {
+    font-size: 27px;
+}
+
+.button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.button i {
+    font-size: 20px;
+}
+
+.text {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+}

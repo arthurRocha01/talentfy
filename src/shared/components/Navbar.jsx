@@ -11,10 +11,10 @@ export const Navbar = () => {
             </div>
             <div className={styles.options}>
                 <ul>
-                    <li><a href="">Home</a></li>
-                    <li><a href="">About</a></li>
-                    <li><a href="">Services</a></li>
-                    <li><a href="">Contact</a></li>
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#sobre">Sobre</a></li>
+                    <li><a href="#suporte">Suporte</a></li>
+                    <li><a href="#contato">Contato</a></li>
                     <li><a href="">Seja um profissional</a></li>
                 </ul>
             </div>
