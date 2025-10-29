@@ -1,9 +1,8 @@
 input {
     width: 300px;
-    height: 30px;
+    height: 40px;
     outline: none;
-    padding-left: 20px;
-    padding-bottom: 2.5px;
+    padding-left: 10px;
     transition: border-bottom-color 0.3s ease-in-out;
     border: 1.8px solid #000000;
     border-radius: 5px;
@@ -24,9 +23,10 @@ input::placeholder {
 
 input:focus {
     border: 2px solid #101994;
+    box-shadow: 0px 2px 8px rgba(16, 25, 148, 0.2);
     outline: none;
 }
 
 input:focus::placeholder {
-    font-size: 17px;
+    font-size: 15.5px;
 }

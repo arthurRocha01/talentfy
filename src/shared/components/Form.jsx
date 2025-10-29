@@ -12,6 +12,8 @@ export const Form = ({ type }) => {
         <div className={styles.container}>
             <h3>{title}</h3>
 
+            {!isLogin && <Input placeholder="Nome Completo" />}
+            {!isLogin && <Input placeholder="(00) 00000-0000" />}
             <Input placeholder="Email" />
             <Input placeholder="Senha" type="password" />
             {!isLogin && <Input placeholder="Confirme a senha" type="password" />}

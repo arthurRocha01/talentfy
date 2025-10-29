@@ -1,15 +1,16 @@
 .button {
     font-weight: 550;
+    font-size: 15px;
     width: 170px;
     padding: 13px 5px;
     background-color: #f0f0f0;
-    color: #060F4C;
+    color: #1b1b1b;
     border: 1px solid #ddd; 
     border-radius: 12px;
     cursor: pointer;
     transition: all 0.4s ease-in-out;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-  }
+}
 
 .button:hover {
     background-color: #00043C;
@@ -17,9 +18,9 @@
     color: #fff;
     padding: 13px 5px;
     box-shadow: 0 2px 3px #00043C;
+    transform: translateY(-3px);
 }
 
 .button:active {
-    transform: translateY(2px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
