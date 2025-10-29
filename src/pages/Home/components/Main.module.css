@@ -8,21 +8,22 @@
     padding: 20px;
     gap: 16px;
     background-color: #f8f9fa;
-    background-image: url('src/shared/assets/img-home.png');
+    /* background-image: url('src/shared/assets/img-home.png'); */
 }
 
 .main p:nth-child(1) {
-    font-size: 18px;
+    font-size: 25px;
     font-weight: 600;
-    color: #2237bb;
+    color: #00043C;
+    text-shadow: 0 2px 8px #10199454;
     text-align: center;
     max-width: 600px;
 }
 
 .main p:nth-child(2) {
-    font-size: 25px;
+    font-size: 18px;
     font-weight: 400;
-    color: #ffffff;
+    /* color: #ffffff; */
     text-align: center;
     max-width: 800px;
 }
