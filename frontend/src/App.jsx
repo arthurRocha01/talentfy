@@ -1,7 +1,7 @@
 import './App.css'
-import { Input } from './component/Input.jsx'
-import { Logo } from './component/Logo.jsx'
-import { Button } from './component/Button.jsx'
+import { Input } from './component/Input.js'
+import { Logo } from './component/Logo.js'
+import { Button } from './component/Button.js'
 function App() {
   return (
     <>
