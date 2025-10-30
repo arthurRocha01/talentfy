@@ -7,7 +7,7 @@ export const Login = () => {
         <>
             <Navbar />
             <div className={styles.container}>
-                <Form />
+                <Form type="login"/>
             </div>
         </>
     );

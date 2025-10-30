@@ -7,7 +7,7 @@ export const Register = () => {
         <>
             <Navbar />
             <div className={styles.container}>
-                <Form />
+                <Form type="register"/>
             </div>
         </>
     );
