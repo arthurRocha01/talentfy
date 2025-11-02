@@ -7,7 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npm run dev --prefix client",
     "server": "npm start --prefix server",
-    "start": "concurrently \"npm run dev --prefix client\" \"npm start --prefix server\""
+    "start": "concurrently \"npm run dev --prefix client\" \"npm start --prefix server\"",
+    "lint": "eslint . --ext .js,.jsx",
+    "lint:fix": "eslint . --ext .js,.jsx --fix",
+    "format": "prettier --write \"**/*.{js,jsx,json,css,md}\""
   },
   "repository": {
     "type": "git",
@@ -24,5 +27,14 @@
     "axios": "^1.13.1",
     "bootstrap-icons": "^1.13.1",
     "cors": "^2.8.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.0",
+    "eslint": "^9.39.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.5.0",
+    "prettier": "^3.6.2"
   }
 }

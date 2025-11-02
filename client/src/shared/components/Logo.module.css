@@ -40,7 +40,7 @@
   left: calc(45px * var(--size-factor));
   align-self: center;
   margin: 0;
-}          
+}
 
 .containerLogo i:nth-child(2) {
   font-size: calc(25px * var(--size-factor));
