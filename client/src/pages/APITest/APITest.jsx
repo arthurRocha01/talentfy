@@ -25,6 +25,7 @@ export const APITest = () => {
       const res = await getUsers();
       setUsers(res.data);
       setFilteredUsers(res.data);
+      console.log(res.data);
       setMessage('Lista de usuários carregada.');
     } catch (err) {
       console.error(
