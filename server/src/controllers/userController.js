@@ -12,12 +12,29 @@ export async function getAllUsers(req, res) {
     res.status(500).json({ error: err.message });
   }
 }
+
 export async function getUserById(req, res) {
   const { id } = req.params;
   try {
     const [rows] = await pool.query(
       'SELECT id_usuario, nome, email, tipo_usuario, data_cadastro FROM usuarios WHERE id_usuario = ?',
       [id]
+    );
+    if (rows.length === 0)
+      return res.status(404).json({ error: 'Usuário não encontrado' });
+    res.json(rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+export async function getUserByEmail(req, res) {
+  const { email } = req.params;
+
+  try {
+    const [rows] = await pool.query(
+      'SELECT id_usuario, nome, email, tipo_usuario, data_cadastro FROM usuarios WHERE email = ?',
+      [email]
     );
     if (rows.length === 0)
       return res.status(404).json({ error: 'Usuário não encontrado' });

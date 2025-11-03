@@ -1,7 +1,9 @@
 import express from 'express';
-import userRoutes from './routes/userRoutes.js';
 import dotenv from 'dotenv';
 import cors from 'cors';
+
+import userRoutes from './routes/userRoutes.js';
+import authRoutes from './routes/authRooutes.js';
 
 dotenv.config();
 const app = express();
@@ -13,6 +15,7 @@ app.use(
 );
 
 app.use('/api/users', userRoutes);
+app.use('/api/auth', authRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
