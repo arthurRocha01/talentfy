@@ -5,6 +5,7 @@ export const Input = ({
   type = 'text',
   onClick,
   onChange,
+  name,
   value,
 }) => {
   return (
@@ -15,6 +16,7 @@ export const Input = ({
         placeholder={placeholder}
         onClick={onClick}
         onChange={onChange}
+        name={name}
         value={value}
       />
     </div>

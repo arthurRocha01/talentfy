@@ -3,7 +3,8 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 
 import userRoutes from './routes/userRoutes.js';
-import authRoutes from './routes/authRooutes.js';
+import authRoutes from './routes/authRoutes.js';
+import { errorHandler } from './middlewares/errorHandler.js';
 
 dotenv.config();
 const app = express();
@@ -17,9 +18,6 @@ app.use(
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ message: err.message });
-});
+app.use(errorHandler);
 
 export default app;

@@ -1,125 +1,75 @@
 import pool from '../database/connection.js';
 import bcrypt from 'bcrypt';
+import { json } from 'express';
 
-export async function getAllUsers(req, res) {
-  try {
-    const [rows] = await pool.query(
-      'SELECT id_usuario, nome, email, tipo_usuario, data_cadastro FROM usuarios'
-    );
-    res.json(rows);
-  } catch (err) {
-    console.error('Erro ao listar usuários:', err);
-    res.status(500).json({ error: err.message });
-  }
+/* Funções utilitárias */
+
+const generateHashPassword = async (password) => {
+  return await bcrypt.hash(password, 10);
 }
 
-export async function getUserById(req, res) {
-  const { id } = req.params;
-  try {
-    const [rows] = await pool.query(
-      'SELECT id_usuario, nome, email, tipo_usuario, data_cadastro FROM usuarios WHERE id_usuario = ?',
-      [id]
-    );
-    if (rows.length === 0)
-      return res.status(404).json({ error: 'Usuário não encontrado' });
-    res.json(rows[0]);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+export const findUserByEmail = async (email) => {
+  const [user] = await pool.query('SELECT id_usuario, nome, email, senha_hash, tipo_usuario, data_cadastro FROM usuariosf WHERE email = ?', [email]);
+  return user[0];
 }
 
-export async function getUserByEmail(req, res) {
-  const { email } = req.params;
+/* Controladores */
 
-  try {
-    const [rows] = await pool.query(
-      'SELECT id_usuario, nome, email, tipo_usuario, data_cadastro FROM usuarios WHERE email = ?',
-      [email]
-    );
-    if (rows.length === 0)
-      return res.status(404).json({ error: 'Usuário não encontrado' });
-    res.json(rows[0]);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+export const getAllUsers = async (req, res) => {
+  const [users] = await pool.query('SELECT * FROM usuarios');
+  return res.json(users);
 }
 
-export async function createUser(req, res) {
-  const { nome, email, senha, tipo_usuario } = req.body;
-  try {
-    const [existing] = await pool.query(
-      'SELECT * FROM usuarios WHERE email = ?',
-      [email]
-    );
-    if (existing.length > 0)
-      return res.status(400).json({ error: 'Email já cadastrado' });
+export const createUser = async (req, res) => {
+  const { nome, email, password, tipo_usuario } = req.body;
+  const existing = await pool.query('SELECT 1 FROM usuarios WHERE email = ?', [email]);
+  if (existing.length) return res.status(400).json({ error: 'Email já cadastrado' });
 
-    const hash = await bcrypt.hash(senha, 10);
-    await pool.query(
-      'INSERT INTO usuarios (nome, email, senha_hash, tipo_usuario) VALUES (?, ?, ?, ?)',
-      [nome, email, hash, tipo_usuario || 'cliente']
-    );
-    res.status(201).json({ message: 'Usuário criado com sucesso' });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  const senha_hash = await generateHashPassword(password);
+  await pool.query(
+    'INSERT INTO usuarios (nome, email, senha_hash, tipo_usuario) VALUES (?, ?, ?, ?)',
+    [nome, email, senha_hash, tipo_usuario]
+  );
+
+  res.status(201).json({ message: 'Usuário criado com sucesso' });
 }
 
-export async function updateUser(req, res) {
+export const updateUser = async (req, res) => {
   const { id } = req.params;
   const { nome, email, senha, tipo_usuario } = req.body;
-  try {
-    const updates = [];
-    const values = [];
 
-    if (nome) {
-      updates.push('nome = ?');
-      values.push(nome);
-    }
-    if (email) {
-      updates.push('email = ?');
-      values.push(email);
-    }
-    if (senha) {
-      const hash = await bcrypt.hash(senha, 10);
-      updates.push('senha_hash = ?');
-      values.push(hash);
-    }
-    if (tipo_usuario) {
-      updates.push('tipo_usuario = ?');
-      values.push(tipo_usuario);
-    }
+  const fields = { nome, email, tipo_usuario };
+  const updates = Object.entries(fields)
+    .filter(([_, value]) => value !== undefined)
+    .map(([key]) => `${key} = ?`);
 
-    if (updates.length === 0)
-      return res.status(400).json({ error: 'Nenhum campo para atualizar' });
+  const values = Object.values(fields).filter((v) => v !== undefined);
 
-    values.push(id);
-
-    const [result] = await pool.query(
-      `UPDATE usuarios SET ${updates.join(', ')} WHERE id_usuario = ?`,
-      values
-    );
-
-    if (result.affectedRows === 0)
-      return res.status(404).json({ error: 'Usuário não encontrado' });
-
-    res.json({ message: 'Usuário atualizado com sucesso' });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+  if (senha) {
+    updates.push('senha_hash = ?');
+    values.push(await generateHashPassword(senha));
   }
+
+  if (!updates.length)
+    return res.status(400).json({ error: 'Nenhum campo para atualizar' });
+
+  const [result] = await pool.query(
+    `UPDATE usuarios SET ${updates.join(', ')} WHERE id_usuario = ?`,
+    [...values, id]
+  );
+
+  if (!result.affectedRows)
+    return res.status(404).json({ error: 'Usuário não encontrado' });
+
+  res.json({ message: 'Usuário atualizado com sucesso' });
 }
 
-export async function deleteUser(req, res) {
+export const deleteUser = async (req, res) => {
   const { id } = req.params;
-  try {
-    const [result] = await pool.query(
-      'DELETE FROM usuarios WHERE id_usuario = ?',
-      [id]
-    );
-    if (result.affectedRows === 0)
-      return res.status(404).json({ error: 'Usuário não encontrado' });
-    res.json({ message: 'Usuário deletado com sucesso' });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  const result = await pool.query('DELETE FROM usuarios WHERE id_usuario = ?', [id]);
+
+  if (result.affectedRows === 0)
+    return res.status(404).json({ error: 'Usuário não encontrado' });
+
+  res.json({ message: 'Usuário deletado com sucesso' });
 }
