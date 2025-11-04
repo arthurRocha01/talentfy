@@ -37,8 +37,8 @@ export const errorHandler = (err, req, res, next) => {
   console.error('================\n');
 
   // Resposta ao cliente
-  res.status(500).json({ 
+  res.status(500).json({
     error: 'Erro interno do servidor',
-    details: process.env.NODE_ENV === 'development' ? err.message : undefined
+    details: process.env.NODE_ENV === 'development' ? err.message : undefined,
   });
 };

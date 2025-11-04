@@ -1,5 +1,4 @@
 import styles from './Logo.module.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
 
 export const Logo = ({ sizeFactor = 1.0 }) => {
   return (

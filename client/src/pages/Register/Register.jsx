@@ -11,64 +11,60 @@ export const Register = () => {
     email: '',
     senha: '',
     confirmarSenha: '',
-    tipo_usuario: '',
+    tipo_usuario: 'cliente',
   });
 
-  const handleSubmit = async (e) => {
+  const handleChange = (field) => (e) => {
+    setForm({ ...form, [field]: e.target.value });
+  };
+
+  const handlerSubmit = async (e) => {
     e.preventDefault();
-    console.log('khkjhkjh');
-    if (form.senha !== form.confirmarSenha) {
-      console.log('As senhas não conferem!');
-      return;
-    }
+    const { nome, email, senha, confirmarSenha, tipo_usuario } = form;
+    if (senha !== confirmarSenha) return console.log('As senhas não conferem!');
 
     try {
-      await createUser(form);
-      console.log(`Usuário ${form.nome} criado com sucesso!`);
+      const response = await createUser({ nome, email, senha, tipo_usuario });
+      console.log(`Usuário criado: ${response}`);
       setForm({
-        nome: form.nome,
-        email: form.email,
-        senha: form.senha,
-        tipo_usuario: form.tipo_usuario,
+        nome: '',
+        email: '',
+        senha: '',
+        confirmarSenha: '',
+        tipo_usuario: 'cliente',
       });
     } catch (error) {
       console.error(
         'Erro ao salvar usuário:',
         error.response?.data || error.message
       );
-      console.log('Erro ao salvar usuário');
     }
   };
 
   const inputs = [
-    <Input
-      placeholder="Nome"
-      type="text"
-      value={form.nome}
-      onChange={(e) => setForm({ ...form, nome: e.target.value })}
-    />,
-    <Input
-      placeholder="Senha"
-      type="text"
-      value={form.senha}
-      onChange={(e) => setForm({ ...form, senha: e.target.value })}
-    />,
-    <Input
-      placeholder="Confirmar senha"
-      type="text"
-      value={form.confirmarSenha}
-      onChange={(e) => setForm({ ...form, confirmarSenha: e.target.value })}
-    />,
+    { key: 'nome', placeholder: 'Nome de usuário', type: 'text' },
+    { key: 'email', placeholder: 'Email', type: 'email' },
+    { key: 'senha', placeholder: 'Senha', type: 'password' },
+    { key: 'confirmarSenha', placeholder: 'Confirmar senha', type: 'password' },
   ];
+
   return (
     <>
       <Navbar />
       <div className={styles.container}>
         <Form
-          inputs={inputs}
           title="Faça seu cadastro!"
           buttonText="Cadastrar"
-          handlerSubmit={handleSubmit}
+          handlerSubmit={handlerSubmit}
+          inputs={inputs.map(({ key, placeholder, type }) => (
+            <Input
+              key={key}
+              type={type}
+              placeholder={placeholder}
+              value={form[key]}
+              onChange={handleChange(key)}
+            />
+          ))}
         />
       </div>
     </>

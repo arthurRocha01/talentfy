@@ -1,41 +1,57 @@
+import { useState } from 'react';
 import { Form } from '../../shared/components/Form.jsx';
 import { Navbar } from '../../shared/components/Navbar.jsx';
 import { Input } from '../../shared/components/Input.jsx';
-import styles from './Login.module.css';
-import { useState } from 'react';
 import { login } from '../../services/authServices.js';
+import styles from './Login.module.css';
 
 export const Login = () => {
   const [form, setForm] = useState({ email: '', password: '' });
-  
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+
+  const handleChange = (field) => (e) => {
+    setForm({ ...form, [field]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handlerSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await login(form);
+      console.log(response);
+      const { token, user } = response.data;
 
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('user', JSON.stringify(response.data.user));
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
+
       alert('Login realizado com sucesso!');
     } catch (error) {
-      console.error(error);
-      alert('Usuário ou senha inválidos.')
+      console.error('Erro no login:', error.response?.data || error.message);
+      alert('Usuário ou senha inválidos.');
     }
-  }
-  
-  const inputs = [
-    <Input key='email' name='email' placeholder='Email' type='text' value={form.email} onChange={handleChange} />,
-    <Input key='password' name='password' placeholder='Senha' type='text' value={form.password} onChange={handleChange} />
+  };
+
+  const inputFields = [
+    { key: 'email', placeholder: 'Email', type: 'email' },
+    { key: 'password', placeholder: 'Senha', type: 'password' },
   ];
+
   return (
     <>
       <Navbar />
       <div className={styles.container}>
-        <Form inputs={inputs} title="Faça o seu login!" buttonText="Entrar" handleSubmit={handleSubmit} />
+        <Form
+          title="Faça o seu login!"
+          buttonText="Entrar"
+          handlerSubmit={handlerSubmit}
+          inputs={inputFields.map(({ key, placeholder, type }) => (
+            <Input
+              key={key}
+              type={type}
+              placeholder={placeholder}
+              value={form[key]}
+              onChange={handleChange(key)}
+            />
+          ))}
+        />
       </div>
     </>
   );
