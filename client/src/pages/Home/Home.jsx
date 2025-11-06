@@ -7,7 +7,7 @@ export const Home = () => {
   return (
     <div className={styles.container}>
       <Navbar />
-      <Main />
+      <Main  />
     </div>
   );
 };
