@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Mail, Lock, User, Github } from "lucide-react";
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { createUser } from "../services/userServices";
 import InputField from "../components/common/InputField";
 import SocialButton from "../components/common/SocialButton";
 import { useToastStore } from "../store/useToastStore";
@@ -20,6 +21,7 @@ const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [userType, setUserType] = useState("cliente");
   const [isLoading, setIsLoading] = useState(false);
   const addToast = useToastStore((state) => state.addToast);
   const navigate = useNavigate();
@@ -41,18 +43,21 @@ const RegisterPage = () => {
       return;
     }
 
-    // Simular registro
-    setTimeout(() => {
-      if (name && email && password) {
-        localStorage.setItem("talentfy_user", JSON.stringify({ email, name }));
-        addToast("Conta criada com sucesso!", "success");
-        setTimeout(() => navigate("/"), 1000);
-      } else {
-        addToast("Por favor, preencha todos os campos", "error");
-        setIsLoading(false);
-      }
-    }, 1500);
-  };
+    try {
+      const response = await createUser({ name, email, password, userType });
+      addToast('Conta criada com sucesso!', 'success');
+      // setTimeout(() => navigate("/"), 1000);
+      console.log(`Usuário criado: ${response.data}`);
+    } catch (error: any) {
+      const message =
+        error.response?.data?.message ||
+        error.response?.data?.error ||
+        "Erro ao criar conta.";
+
+      addToast(message, "error");
+      setIsLoading(false);
+    }
+  }
 
   return (
     <motion.div

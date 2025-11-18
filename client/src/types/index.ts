@@ -8,6 +8,14 @@ export type Category = {
   gradient: string;
 };
 
+export type User = {
+  id: number,
+  name: string,
+  email: string,
+  tipo_usuario: string,
+  
+}
+
 export type Profile = {
   id: string;
   name: string;

@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Mail, Lock, Github } from "lucide-react";
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { login } from '../services/authServices';
 import InputField from "../components/common/InputField";
 import SocialButton from "../components/common/SocialButton";
 import { useToastStore } from "../store/useToastStore";
@@ -26,17 +27,21 @@ const LoginPage = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simular autenticação
-    setTimeout(() => {
-      if (email && password) {
-        localStorage.setItem("talentfy_user", JSON.stringify({ email, name: email.split("@")[0] }));
-        addToast("Login realizado com sucesso!", "success");
-        setTimeout(() => navigate("/"), 1000);
-      } else {
-        addToast("Por favor, preencha todos os campos", "error");
-        setIsLoading(false);
-      }
-    }, 1500);
+    try {
+      const response = await login(email, password);
+      console.log(response);
+      const { token, user } = response.data;
+
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
+
+      addToast("Login realizado com sucesso!", "success");
+      // navigate("/");
+    } catch (error: any) {
+      console.error('Erro no login:', error.response?.data || error.message);
+      addToast('Usuário ou senha inválidos!', 'error');
+      setIsLoading(false);
+    }
   };
 
   return (
