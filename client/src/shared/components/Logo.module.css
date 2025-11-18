@@ -1,51 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Electrolize&family=Inconsolata:wght@200..900&family=Julee&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+
+/* estilos do container da logo */
 .containerLogo {
   width: auto;
   max-width: calc(450px * var(--size-factor));
   min-width: calc(300px * var(--size-factor));
   height: auto;
   padding: calc(15px * var(--size-factor)) calc(25px * var(--size-factor));
-  border: 2px solid #333;
-  border-radius: 10px;
-  background-color: #f4f4f4;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   gap: calc(15px * var(--size-factor));
 }
 
+/* estilos do texto da logo */
 .containerLogo h1 {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: calc(55px * var(--size-factor));
-  font-weight: 900;
-  color: #000;
+  font-weight: 700;
+  color: #0066ff;
   margin: 0;
   line-height: 1;
-}
-
-.containerLogo span {
-  font-family: 'Times New Roman', Times, serif;
-  color: #101994;
-  margin-left: calc(2px * var(--size-factor));
-  font-size: calc(60px * var(--size-factor));
-  letter-spacing: calc(-2px * var(--size-factor));
-  font-weight: 900;
-  line-height: 1;
-}
-
-.containerLogo i {
-  font-size: calc(30px * var(--size-factor));
-  color: #555;
-  position: relative;
-  top: calc(-15px * var(--size-factor));
-  left: calc(45px * var(--size-factor));
-  align-self: center;
-  margin: 0;
-}
-
-.containerLogo i:nth-child(2) {
-  font-size: calc(25px * var(--size-factor));
-  top: calc(-30px * var(--size-factor));
-  left: calc(15px * var(--size-factor));
-  margin-left: 0;
-  transform: none;
 }

@@ -1,10 +1,15 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 .navbar {
   height: 80px;
   flex-shrink: 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
-  width: 100%;
   padding: 0 40px;
   background-color: rgba(255, 255, 255, 0.9);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
@@ -23,7 +28,6 @@
 .options {
   flex-grow: 1;
   display: flex;
-  justify-content: center;
 }
 
 .options ul {
@@ -51,17 +55,23 @@
   left: 0;
   width: 0;
   height: 2px;
-  background-color: #101994;
+  background-color: #0066ff;
   transition: width 0.3s ease;
 }
 
 .options a:hover {
-  color: #101994;
+  color: #0066ff;
 }
 
 .options a:hover::after {
   width: 100%;
 }
+
+.searchBar {
+  flex-grow: 2;
+  display: flex;
+}
+
 
 .buttons {
   display: flex;

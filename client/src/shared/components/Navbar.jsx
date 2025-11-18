@@ -12,25 +12,21 @@ export const Navbar = () => {
       <div className={styles.options}>
         <ul>
           <li>
-            <a href="#inicio">Início</a>
+            <a href="#">Início</a>
           </li>
           <li>
-            <a href="#sobre">Sobre</a>
+            <a href="#">Talentos</a>
           </li>
           <li>
-            <a href="#suporte">Suporte</a>
-          </li>
-          <li>
-            <a href="#contato">Contato</a>
-          </li>
-          <li>
-            <a href="">Seja um profissional</a>
+            <a href="#">Feed</a>
           </li>
         </ul>
       </div>
+      <div className={styles.searchBar}>
+        searchBar
+      </div>
       <div className={styles.buttons}>
         <LoginButton />
-        <RegisterButton />
       </div>
     </nav>
   );

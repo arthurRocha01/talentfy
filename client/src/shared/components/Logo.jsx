@@ -6,10 +6,8 @@ export const Logo = ({ sizeFactor = 1.0 }) => {
       className={styles.containerLogo}
       style={{ '--size-factor': sizeFactor }}
     >
-      <i className="bi bi-gear-fill"></i>
-      <i className="bi bi-wrench"></i>
       <h1>
-        Talent<span>Fy</span>
+        TalentFy
       </h1>
     </div>
   );
