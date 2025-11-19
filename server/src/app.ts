@@ -1,14 +1,17 @@
-import express from 'express';
+import express, { Application } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 
-import userRoutes from './routes/userRoutes.js';
-import authRoutes from './routes/authRoutes.js';
-import { errorHandler } from './middlewares/errorHandler.js';
+import userRoutes from './routes/userRoutes';
+import authRoutes from './routes/authRoutes';
+import { errorHandler } from './middlewares/errorHandler';
 
 dotenv.config();
-const app = express();
+
+const app: Application = express();
+
 app.use(express.json());
+
 app.use(
   cors({
     origin: 'http://localhost:5173',

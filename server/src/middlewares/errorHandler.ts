@@ -1,4 +1,15 @@
-export const errorHandler = (err, req, res, next) => {
+import { Request, Response, NextFunction } from 'express';
+
+interface ErrorWithStack extends Error {
+  stack?: string;
+}
+
+export const errorHandler = (
+  err: ErrorWithStack,
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Response => {
   const timestamp = new Date().toISOString();
 
   // Captura informações do request
@@ -37,7 +48,7 @@ export const errorHandler = (err, req, res, next) => {
   console.error('================\n');
 
   // Resposta ao cliente
-  res.status(500).json({
+  return res.status(500).json({
     error: 'Erro interno do servidor',
     details: process.env.NODE_ENV === 'development' ? err.message : undefined,
   });

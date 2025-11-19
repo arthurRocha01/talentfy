@@ -1,0 +1,256 @@
+-- ============================== -- USERS TABLE -- ==============================
+CREATE TABLE users (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    user_type ENUM('client', 'provider', 'administrator') NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ============================== -- PROVIDER PROFILES -- ==============================
+CREATE TABLE provider_profiles (
+    provider_id INT PRIMARY KEY,
+    professional_name VARCHAR(100),
+    description TEXT,
+    average_rating DECIMAL(3,2) DEFAULT 0,
+    completed_services INT DEFAULT 0,
+    FOREIGN KEY (provider_id) REFERENCES users(user_id)
+);
+
+-- ============================== -- CLIENT PROFILES -- ==============================
+CREATE TABLE client_profiles (
+    client_id INT PRIMARY KEY,
+    phone VARCHAR(20),
+    birth_date DATE,
+    gender ENUM('male','female','other'),
+    preferences TEXT,
+    FOREIGN KEY (client_id) REFERENCES users(user_id)
+);
+
+-- ============================== -- ADDRESSES -- ==============================
+CREATE TABLE addresses (
+    address_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    address_type ENUM('home','work','other') DEFAULT 'home',
+    street VARCHAR(150),
+    number VARCHAR(20),
+    complement VARCHAR(50),
+    city VARCHAR(50),
+    state VARCHAR(50),
+    zip_code VARCHAR(10),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+-- ============================== -- CATEGORIES AND RELATIONSHIPS -- ==============================
+CREATE TABLE categories (
+    category_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) UNIQUE NOT NULL,
+    description TEXT
+);
+
+CREATE TABLE provider_categories (
+    provider_id INT NOT NULL,
+    category_id INT NOT NULL,
+    PRIMARY KEY (provider_id, category_id),
+    FOREIGN KEY (provider_id) REFERENCES users(user_id),
+    FOREIGN KEY (category_id) REFERENCES categories(category_id)
+);
+
+-- ============================== -- SERVICES OFFERED -- ==============================
+CREATE TABLE services (
+    service_id INT PRIMARY KEY AUTO_INCREMENT,
+    provider_id INT NOT NULL,
+    category_id INT NOT NULL,
+    description TEXT,
+    price DECIMAL(10,2),
+    duration_minutes INT,
+    availability TEXT,
+    FOREIGN KEY (provider_id) REFERENCES users(user_id),
+    FOREIGN KEY (category_id) REFERENCES categories(category_id)
+);
+
+-- ============================== -- PROVIDER AVAILABILITY -- ==============================
+CREATE TABLE provider_availability (
+    availability_id INT PRIMARY KEY AUTO_INCREMENT,
+    provider_id INT NOT NULL,
+    weekday ENUM('sunday','monday','tuesday','wednesday','thursday','friday','saturday') NOT NULL,
+    start_time TIME NOT NULL,
+    end_time TIME NOT NULL,
+    FOREIGN KEY (provider_id) REFERENCES users(user_id)
+);
+
+-- ============================== -- ORDERS -- ==============================
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY AUTO_INCREMENT,
+    client_id INT NOT NULL,
+    provider_id INT NOT NULL,
+    service_id INT NOT NULL,
+    request_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('pending','in_progress','completed','canceled') DEFAULT 'pending',
+    FOREIGN KEY (client_id) REFERENCES users(user_id),
+    FOREIGN KEY (provider_id) REFERENCES users(user_id),
+    FOREIGN KEY (service_id) REFERENCES services(service_id)
+);
+
+-- ============================== -- REVIEWS -- ==============================
+CREATE TABLE reviews (
+    review_id INT PRIMARY KEY AUTO_INCREMENT,
+    order_id INT NOT NULL,
+    rating INT CHECK (rating BETWEEN 1 AND 5),
+    comment TEXT,
+    review_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES orders(order_id)
+);
+
+-- ============================== -- REPORTS -- ==============================
+CREATE TABLE posts (
+    post_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    title VARCHAR(150),
+    content TEXT,
+    post_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE reports (
+    report_id INT PRIMARY KEY AUTO_INCREMENT,
+    reporter_id INT NOT NULL,
+    target_user_id INT,
+    order_id INT,
+    post_id INT,
+    reason TEXT NOT NULL,
+    status ENUM('pending','reviewed','resolved') DEFAULT 'pending',
+    report_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (reporter_id) REFERENCES users(user_id),
+    FOREIGN KEY (target_user_id) REFERENCES users(user_id),
+    FOREIGN KEY (order_id) REFERENCES orders(order_id),
+    FOREIGN KEY (post_id) REFERENCES posts(post_id)
+);
+
+-- ============================== -- WALLETS AND TRANSACTIONS -- ==============================
+CREATE TABLE wallets (
+    wallet_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    balance DECIMAL(10,2) DEFAULT 0,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE wallet_transactions (
+    transaction_id INT PRIMARY KEY AUTO_INCREMENT,
+    wallet_id INT NOT NULL,
+    type ENUM('deposit','payment','transfer','refund') NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    transaction_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    description TEXT,
+    FOREIGN KEY (wallet_id) REFERENCES wallets(wallet_id)
+);
+
+CREATE TABLE withdrawal_requests (
+    withdrawal_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    status ENUM('pending','approved','rejected') DEFAULT 'pending',
+    request_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+-- ============================== -- POINTS -- ==============================
+CREATE TABLE points_history (
+    history_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    points INT NOT NULL,
+    reason VARCHAR(255),
+    record_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE points_balance (
+    user_id INT PRIMARY KEY,
+    balance INT DEFAULT 0,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+-- ============================== -- POSTS, COMMENTS AND REACTIONS -- ==============================
+CREATE TABLE comments (
+    comment_id INT PRIMARY KEY AUTO_INCREMENT,
+    post_id INT NOT NULL,
+    user_id INT NOT NULL,
+    content TEXT,
+    comment_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (post_id) REFERENCES posts(post_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE reactions (
+    reaction_id INT PRIMARY KEY AUTO_INCREMENT,
+    post_id INT NOT NULL,
+    user_id INT NOT NULL,
+    type ENUM('like','love','sad','angry','surprised') DEFAULT 'like',
+    reaction_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (post_id) REFERENCES posts(post_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+-- ============================== -- CONVERSATIONS AND MESSAGES -- ==============================
+CREATE TABLE conversations (
+    conversation_id INT PRIMARY KEY AUTO_INCREMENT,
+    user1_id INT NOT NULL,
+    user2_id INT NOT NULL,
+    order_id INT,
+    FOREIGN KEY (user1_id) REFERENCES users(user_id),
+    FOREIGN KEY (user2_id) REFERENCES users(user_id),
+    FOREIGN KEY (order_id) REFERENCES orders(order_id)
+);
+
+CREATE TABLE messages (
+    message_id INT PRIMARY KEY AUTO_INCREMENT,
+    conversation_id INT NOT NULL,
+    sender_id INT NOT NULL,
+    content TEXT,
+    sent_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (conversation_id) REFERENCES conversations(conversation_id),
+    FOREIGN KEY (sender_id) REFERENCES users(user_id)
+);
+
+-- ============================== -- PROVIDER DOCUMENTS -- ==============================
+CREATE TABLE provider_documents (
+    document_id INT PRIMARY KEY AUTO_INCREMENT,
+    provider_id INT NOT NULL,
+    document_type VARCHAR(50),
+    file_path VARCHAR(255),
+    verification_status ENUM('pending','approved','rejected') DEFAULT 'pending',
+    sent_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (provider_id) REFERENCES users(user_id)
+);
+
+-- ============================== -- AUDIT -- ==============================
+CREATE TABLE audit (
+    audit_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    action VARCHAR(255),
+    details TEXT,
+    audit_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+-- ============================== -- CLIENT FAVORITES -- ==============================
+CREATE TABLE favorites (
+    favorite_id INT PRIMARY KEY AUTO_INCREMENT,
+    client_id INT NOT NULL,
+    provider_id INT,
+    service_id INT,
+    FOREIGN KEY (client_id) REFERENCES users(user_id),
+    FOREIGN KEY (provider_id) REFERENCES users(user_id),
+    FOREIGN KEY (service_id) REFERENCES services(service_id)
+);
+
+-- ============================== -- CLIENT PAYMENT METHODS -- ==============================
+CREATE TABLE payment_methods (
+    payment_method_id INT PRIMARY KEY AUTO_INCREMENT,
+    client_id INT NOT NULL,
+    type ENUM('card','pix','boleto','paypal') NOT NULL,
+    payment_data TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (client_id) REFERENCES users(user_id)
+);
