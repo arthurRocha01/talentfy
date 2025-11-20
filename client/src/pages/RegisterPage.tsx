@@ -21,7 +21,7 @@ const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [userType, setUserType] = useState("cliente");
+  const [role, setRole] = useState("client");
   const [isLoading, setIsLoading] = useState(false);
   const addToast = useToastStore((state) => state.addToast);
   const navigate = useNavigate();
@@ -44,9 +44,10 @@ const RegisterPage = () => {
     }
 
     try {
-      const response = await createUser({ name, email, password, userType });
+      const response = await createUser({ name, email, password, role });
       addToast('Conta criada com sucesso!', 'success');
-      // setTimeout(() => navigate("/"), 1000);
+      setTimeout(() => navigate("/"), 1000);
+      
       console.log(`Usuário criado: ${response.data}`);
     } catch (error: any) {
       const message =
