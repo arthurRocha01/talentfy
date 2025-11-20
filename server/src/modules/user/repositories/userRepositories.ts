@@ -1,15 +1,6 @@
 import pool from '../../../database/connection.js';
-import type { User } from '../intities/User.js';
+import type { User } from '../../../utils/shared/types/index.js';
 import { type ResultSetHeader } from 'mysql2/promise';
-
-
-export const findUserByEmail = async (email: string): Promise<User | null> => {
-    const [rows] = await pool.query<User[]>(
-        'SELECT id, name, email, password_hash, role, created_at FROM users WHERE email = ?',
-        [email],
-    );
-    return rows[0] ?? null;
-};
 
 export const getAllUsers = async (): Promise<User[]> => {
     const [rows] = await pool.query<User[]>('SELECT * FROM users');

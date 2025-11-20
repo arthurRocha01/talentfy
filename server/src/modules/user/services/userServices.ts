@@ -1,7 +1,8 @@
 import type * as UserRequestDTO from '../dto/UserRequestDTO.js';
 import * as userRepo from '../repositories/userRepositories.js';
+import * as sharedQueries from '../../../utils/shared/database/queries.js';
 import { hashPassword } from '../../../utils/password.utils.js';
-import type { User } from '../intities/User.js'; 
+import type { User } from '../../../utils/shared/types/index.js';
 import { AppError } from '../../../utils/AppError.js';
 
 export const listUsers = async (): Promise<User[]> => {
@@ -14,7 +15,7 @@ export const createUser = async ({
     password,
     role,
 }: UserRequestDTO.CreateUserDTO): Promise<{ message: string }> => {
-    const existing = await userRepo.findUserByEmail(email);
+    const existing = await sharedQueries.findUserByEmail(email);
 
     if (existing) {
         throw new AppError('Email já cadastrado.');
