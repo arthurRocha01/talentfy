@@ -1,55 +1,35 @@
-import { Request, Response, NextFunction } from 'express';
-
-interface ErrorWithStack extends Error {
-  stack?: string;
-}
+import type { Request, Response, NextFunction } from 'express';
+import colors from 'colors/safe.js'; // opcional, para cores no terminal
 
 export const errorHandler = (
-  err: ErrorWithStack,
+  err: any,
   req: Request,
   res: Response,
   next: NextFunction
-): Response => {
+) => {
   const timestamp = new Date().toISOString();
 
-  // Captura informações do request
-  const method = req.method;
-  const url = req.originalUrl;
-  const body = JSON.stringify(req.body, null, 2);
-  const params = JSON.stringify(req.params, null, 2);
-  const query = JSON.stringify(req.query, null, 2);
+  console.log(colors.red('=================== ERROR ==================='));
+  console.log(colors.yellow(`Time: ${timestamp}`));
+  console.log(colors.cyan(`Method: ${req.method} | URL: ${req.originalUrl}`));
+  
+  if (Object.keys(req.params).length) {
+    console.log(colors.magenta(`Params: ${JSON.stringify(req.params, null, 2)}`));
+  }
 
-  // Captura stack e função
-  const stack = err.stack || '';
-  const funcMatch = stack.match(/at (\S+) \(/);
-  const funcName = funcMatch ? funcMatch[1] : 'anonymous';
+  if (Object.keys(req.body).length) {
+    console.log(colors.blue(`Body: ${JSON.stringify(req.body, null, 2)}`));
+  }
 
-  // Captura arquivo
-  const fileMatch = stack.match(/\((.*):\d+:\d+\)/);
-  const fileName = fileMatch ? fileMatch[1] : 'unknown';
+  console.log(colors.gray(`Stack: ${err.stack}`));
+  console.log(colors.red('============================================'));
 
-  // Log estruturado
-  console.error('\n===== ERRO =====');
-  console.error(`[${timestamp}]`);
-  console.error(`Arquivo: ${fileName}`);
-  console.error(`Função: ${funcName}`);
-  console.error(`Método: ${method}`);
-  console.error(`URL: ${url}`);
-  console.error('--- Params ---');
-  console.error(params);
-  console.error('--- Query ---');
-  console.error(query);
-  console.error('--- Body ---');
-  console.error(body);
-  console.error('--- Mensagem ---');
-  console.error(err.message);
-  console.error('--- Stack Trace ---');
-  console.error(stack);
-  console.error('================\n');
+  const statusCode = err.statusCode || 500;
+  const message = err.message || 'Internal Server Error';
 
-  // Resposta ao cliente
-  return res.status(500).json({
-    error: 'Erro interno do servidor',
-    details: process.env.NODE_ENV === 'development' ? err.message : undefined,
+  res.status(statusCode).json({
+    success: false,
+    message,
+    ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
   });
 };
