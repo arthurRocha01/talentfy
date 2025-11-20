@@ -11,38 +11,26 @@ export const createUser = async (
     req: Request<{}, {}, UserRequestDTO.CreateUserDTO>,
     res: Response
 ) => {
-    try {
-        const result = userService.createUser(req.body);
-        return res.status(201).json(result);
-    } catch (err: any) {
-        return res.status(400).json({ error: err.message });
-    }
+    const result = await userService.createUser(req.body);
+    return res.status(201).json(result);
 };
 
 export const updateUser = async (
     req: Request<{ id?: string }, {}, UserRequestDTO.updateUserDTO>,
     res: Response
 ) => {
-    try {
-        const id = Number(req.params.id);
-        const result = userService.updateUser(id, req.body);
+    const id = Number(req.params.id);
+    const result = await userService.updateUser(id, req.body);
 
-        return res.status(201).json(result);
-    } catch (err: any) {
-        return res.status(400).json({ error: err.message });
-    };
+    return res.status(201).json(result);
 };
 
 export const deleteUser = async (
     req: Request<{ id?: string }>,
     res: Response
 ) => {
-    try {
-        const id = Number(req.params.id);
-        const result = userService.deleteUser(id);
+    const id = Number(req.params.id);
+    const result = await userService.deleteUser(id);
 
-        return res.status(201).json(result)
-    } catch (err: any) {
-        return res.status(400).json({ error: err.message });
-    };
+    return res.status(201).json(result)
 };
