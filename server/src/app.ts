@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 
 import userRoutes from './modules/user/routes.js';
-// import authRoutes from './routes/authRoutes.js';
+import authRoutes from './modules/auth/routes.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 
 dotenv.config();
@@ -19,7 +19,7 @@ app.use(
 );
 
 app.use('/users', userRoutes);
-// app.use('/api/auth', authRoutes);
+app.use('/auth', authRoutes);
 
 app.use(errorHandler);
 
