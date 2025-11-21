@@ -1,4 +1,4 @@
-export interface LoginResponse {
+export interface LoginResponseDTO {
     token: string;
     user: {
         id: number;
