@@ -14,4 +14,4 @@ export const authMiddleware = (req: AuthRequest, res: Response, next: NextFuncti
 
     req.user = user;
     next();
-};
+}; 

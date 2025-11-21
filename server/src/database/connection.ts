@@ -24,4 +24,4 @@ const pool: Pool = mysql.createPool({
     queueLimit: 0,
 });
 
-export default pool;
+export default pool; 

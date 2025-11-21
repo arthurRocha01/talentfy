@@ -64,4 +64,4 @@ export const deleteUser = async (
     }
 
     return { message: 'Usuário deletado com sucesso' };
-};
+}; 

@@ -46,4 +46,4 @@ export const deleteUser = async (id: number): Promise<boolean> => {
     );
 
     return result.affectedRows > 0;
-};
+}; 

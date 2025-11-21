@@ -42,3 +42,4 @@ const FeaturedProfiles = ({ profiles }: FeaturedProfilesProps) => {
 };
 
 export default FeaturedProfiles;
+ 

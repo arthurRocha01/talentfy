@@ -9,4 +9,4 @@ export const comparePasswored = async (
     hashed: string
 ): Promise<boolean> => {
     return bcrypt.compare(password, hashed);
-};
+}; 

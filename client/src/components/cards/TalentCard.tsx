@@ -74,3 +74,4 @@ const TalentCard = ({ profile, index }: TalentCardProps) => {
 };
 
 export default TalentCard;
+ 

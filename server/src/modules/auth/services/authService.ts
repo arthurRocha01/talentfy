@@ -14,4 +14,4 @@ export const verifyToken = (token: string): User => {
         email: decoded.email,
         role: decoded.role
     } as User;
-};
+}; 

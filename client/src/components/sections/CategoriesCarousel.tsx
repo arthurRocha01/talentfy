@@ -83,3 +83,4 @@ const CategoriesCarousel = ({ items }: CategoriesCarouselProps) => {
 };
 
 export default CategoriesCarousel;
+ 

@@ -112,3 +112,4 @@ const Hero = ({ copy, ...rest }: HeroProps) => {
 };
 
 export default Hero;
+ 

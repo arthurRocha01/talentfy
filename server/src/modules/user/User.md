@@ -140,3 +140,4 @@ curl -v -X GET http://localhost:5000/users
 ```bash
 curl -o resposta.json http://localhost:5000/users
 ```
+ 

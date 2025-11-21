@@ -40,3 +40,4 @@ const HowItWorks = ({ steps }: { steps: HowItWorksStep[] }) => {
 };
 
 export default HowItWorks;
+ 

@@ -203,3 +203,4 @@ const ProfileCard = ({ profile, index }: { profile: Profile; index: number }) =>
 };
 
 export default SearchTalentsPage;
+ 

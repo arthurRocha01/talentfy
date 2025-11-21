@@ -60,4 +60,4 @@ export const errorHandler = (
     ip: req.ip,
     ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
   });
-};
+}; 

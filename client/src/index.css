@@ -28,3 +28,4 @@ body::before {
 a {
   @apply text-brand hover:text-brand-dark transition-colors;
 }
+ 

@@ -28,3 +28,4 @@ const SocialButton = ({ icon, label, className, ...props }: SocialButtonProps) =
 };
 
 export default SocialButton;
+ 

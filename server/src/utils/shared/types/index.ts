@@ -7,4 +7,4 @@ export interface User extends RowDataPacket {
     password_hash: string;
     role: 'client' | 'provider' | 'admin';
     cadastred_at: string | Date;
-}
+} 

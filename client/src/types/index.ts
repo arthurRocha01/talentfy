@@ -35,3 +35,4 @@ export type HowItWorksStep = {
   description: string;
   icon: LucideIcon;
 };
+ 

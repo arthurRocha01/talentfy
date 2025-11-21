@@ -14,4 +14,4 @@ export const generateToken = (user: User) => {
         JWT_SECRET,
         { expiresIn: '1d' }
     )
-};
+}; 

@@ -27,3 +27,4 @@ const SectionHeading = ({ eyebrow, title, description, className, ...rest }: Sec
 };
 
 export default SectionHeading;
+ 

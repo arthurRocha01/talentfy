@@ -167,3 +167,4 @@ export const featuredProfiles: Profile[] = [
     accent: "from-brand-dark/75 to-surface-soft/70",
   },
 ];
+ 

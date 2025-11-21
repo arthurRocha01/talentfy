@@ -253,4 +253,4 @@ CREATE TABLE payment_methods (
     data TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (client_id) REFERENCES users(id)
-);
+); 

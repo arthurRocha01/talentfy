@@ -7,4 +7,4 @@ export const findUserByEmail = async (email: string) => {
         [email]
     );
     return user[0] ?? null;
-};
+}; 

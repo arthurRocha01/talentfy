@@ -15,4 +15,4 @@ export const login = async (req: Request, res: Response) => {
 
     const token = generateToken(user);
     res.json({ token });
-};
+}; 

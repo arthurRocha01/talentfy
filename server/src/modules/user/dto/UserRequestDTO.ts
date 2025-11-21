@@ -10,4 +10,4 @@ export interface updateUserDTO {
     email?: string;
     role?: string;
     password?: string;
-};
+}; 

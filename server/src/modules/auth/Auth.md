@@ -81,4 +81,4 @@
 * **Rotas Protegidas:** Exigem Authorization: Bearer <TOKEN>.
 * **Tratamento de Erros:** Status HTTP apropriado e mensagens claras (ex: 401 Unauthorized).
 * **Middleware:** Autenticação valida o token e anexa o usuário à request.
-* **Assincronia:** Uso de asyncHandler para tratamento de erros.
+* **Assincronia:** Uso de asyncHandler para tratamento de erros. 
