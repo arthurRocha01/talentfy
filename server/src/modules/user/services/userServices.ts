@@ -6,62 +6,60 @@ import type { User } from '../../../utils/shared/types/index.js';
 import { AppError } from '../../../utils/AppError.js';
 
 export const listUsers = async (): Promise<User[]> => {
-    return userRepo.getAllUsers();
+  return userRepo.getAllUsers();
 };
 
 export const createUser = async ({
-    name,
-    email,
-    password,
-    role,
+  name,
+  email,
+  password,
+  role,
 }: UserRequestDTO.CreateUserDTO): Promise<{ message: string }> => {
-    const existing = await sharedQueries.findUserByEmail(email);
+  const existing = await sharedQueries.findUserByEmail(email);
 
-    if (existing) {
-        throw new AppError('Email já cadastrado.');
-    }
+  if (existing) {
+    throw new AppError('Email já cadastrado.');
+  }
 
-    const hasshPassword = await hashPassword(password);
+  const hasshPassword = await hashPassword(password);
 
-    await userRepo.createUser(name, email, hasshPassword, role);
+  await userRepo.createUser(name, email, hasshPassword, role);
 
-    return { message: 'Usuário criado com sucesso' };
+  return { message: 'Usuário criado com sucesso' };
 };
 
 export const updateUser = async (
-    id: number,
-    body: UserRequestDTO.updateUserDTO
+  id: number,
+  body: UserRequestDTO.updateUserDTO,
 ): Promise<{ message: string }> => {
-    const fields: Record<string, unknown> = {};
+  const fields: Record<string, unknown> = {};
 
-    if (body.name !== undefined) fields.name = body.name;
-    if (body.email !== undefined) fields.email = body.email;
-    if (body.role !== undefined) fields.role = body.role;
-    if (body.password !== undefined) {
-        fields.password_hash = await hashPassword(body.password)
-    }
+  if (body.name !== undefined) fields.name = body.name;
+  if (body.email !== undefined) fields.email = body.email;
+  if (body.role !== undefined) fields.role = body.role;
+  if (body.password !== undefined) {
+    fields.password_hash = await hashPassword(body.password);
+  }
 
-    if (Object.keys(fields).length === 0) {
-        throw new AppError('Nenhum campo para atualizar');
-    }
+  if (Object.keys(fields).length === 0) {
+    throw new AppError('Nenhum campo para atualizar');
+  }
 
-    const updated = await userRepo.updateUser(id, fields);
+  const updated = await userRepo.updateUser(id, fields);
 
-    if (!updated) {
-        throw new AppError('Usuário não encontrado');
-    }
+  if (!updated) {
+    throw new AppError('Usuário não encontrado');
+  }
 
-    return { message: 'Usuário atualizado com sucesso' };
+  return { message: 'Usuário atualizado com sucesso' };
 };
 
-export const deleteUser = async (
-    id: number,
-): Promise<{ message: string }> => {
-    const deleted = await userRepo.deleteUser(id);
+export const deleteUser = async (id: number): Promise<{ message: string }> => {
+  const deleted = await userRepo.deleteUser(id);
 
-    if (!deleted) {
-        throw new AppError('Usuário não encontrado');
-    }
+  if (!deleted) {
+    throw new AppError('Usuário não encontrado');
+  }
 
-    return { message: 'Usuário deletado com sucesso' };
+  return { message: 'Usuário deletado com sucesso' };
 };

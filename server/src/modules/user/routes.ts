@@ -5,28 +5,12 @@ import { asyncHandler } from '../../utils/asyncHandler.js';
 
 const router: Router = express.Router();
 
-router.get(
-    '/',
-    authMiddleware,
-    asyncHandler(userController.getAllUsers)
-);
+router.get('/', authMiddleware, asyncHandler(userController.getAllUsers));
 
-router.post(
-    '/',
-    authMiddleware,
-    asyncHandler(userController.createUser)
-);
+router.post('/', authMiddleware, asyncHandler(userController.createUser));
 
-router.put(
-    '/:id',
-    authMiddleware,
-    asyncHandler(userController.updateUser)
-);
+router.put('/:id', authMiddleware, asyncHandler(userController.updateUser));
 
-router.delete(
-    '/:id',
-    authMiddleware,
-    asyncHandler(userController.deleteUser)
-);
+router.delete('/:id', authMiddleware, asyncHandler(userController.deleteUser));
 
 export default router;

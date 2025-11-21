@@ -1,6 +1,6 @@
 # API Users
 
-**Base URL:** `http://localhost:5000/users`  
+**Base URL:** `http://localhost:5000/users`
 
 Todos os endpoints utilizam **JSON** e retornam objetos JSON.
 
@@ -12,11 +12,13 @@ Todos os endpoints utilizam **JSON** e retornam objetos JSON.
 **Descrição:** Retorna todos os usuários cadastrados.
 
 **Exemplo `curl`:**
+
 ```bash
 curl -X GET http://localhost:5000/users
 ```
 
 **Resposta (200 OK):**
+
 ```json
 [
   {
@@ -37,6 +39,7 @@ curl -X GET http://localhost:5000/users
 **Descrição:** Cria um novo usuário. A senha será armazenada em hash.
 
 **Body (JSON):**
+
 ```json
 {
   "name": "Arthur",
@@ -49,6 +52,7 @@ curl -X GET http://localhost:5000/users
 > ⚠️ O campo `role` aceita apenas: `'admin'`, `'prestador'`, `'cliente'`.
 
 **Exemplo `curl`:**
+
 ```bash
 curl -X POST http://localhost:5000/users \
 -H "Content-Type: application/json" \
@@ -61,6 +65,7 @@ curl -X POST http://localhost:5000/users \
 ```
 
 **Resposta (201 Created):**
+
 ```json
 {
   "message": "Usuário criado com sucesso"
@@ -75,6 +80,7 @@ curl -X POST http://localhost:5000/users \
 **Descrição:** Atualiza os dados de um usuário existente.
 
 **Body (JSON):**
+
 ```json
 {
   "name": "Arthur Updated",
@@ -85,6 +91,7 @@ curl -X POST http://localhost:5000/users \
 ```
 
 **Exemplo `curl`:**
+
 ```bash
 curl -X PUT http://localhost:5000/users/1 \
 -H "Content-Type: application/json" \
@@ -97,6 +104,7 @@ curl -X PUT http://localhost:5000/users/1 \
 ```
 
 **Resposta (200 OK):**
+
 ```json
 {
   "message": "Usuário atualizado com sucesso"
@@ -111,11 +119,13 @@ curl -X PUT http://localhost:5000/users/1 \
 **Descrição:** Remove um usuário do sistema.
 
 **Exemplo `curl`:**
+
 ```bash
 curl -X DELETE http://localhost:5000/users/1
 ```
 
 **Resposta (200 OK):**
+
 ```json
 {
   "message": "Usuário deletado com sucesso"
@@ -126,17 +136,20 @@ curl -X DELETE http://localhost:5000/users/1
 
 ## Dicas Extras
 
-- Para depuração detalhada, use `-v` no curl:  
+- Para depuração detalhada, use `-v` no curl:
+
 ```bash
 curl -v -X GET http://localhost:5000/users
 ```
 
-- Para autenticação futura, adicione header `Authorization`:  
+- Para autenticação futura, adicione header `Authorization`:
+
 ```bash
 -H "Authorization: Bearer <TOKEN>"
 ```
 
-- Para salvar a resposta em arquivo:  
+- Para salvar a resposta em arquivo:
+
 ```bash
 curl -o resposta.json http://localhost:5000/users
 ```

@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from 'express';
 
-export const asyncHandler = (
-  fn: (req: Request, res: Response, next: NextFunction) => Promise<any>
-) => (req: Request, res: Response, next: NextFunction) => {
-  Promise.resolve(fn(req, res, next)).catch(next); // aqui o erro vai para o middleware
-};
+export const asyncHandler =
+  (fn: (req: Request, res: Response, next: NextFunction) => Promise<any>) =>
+  (req: Request, res: Response, next: NextFunction) => {
+    Promise.resolve(fn(req, res, next)).catch(next); // aqui o erro vai para o middleware
+  };
