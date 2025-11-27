@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700&family=Poppins:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark light;
+}
+
+body {
+  @apply bg-surface-soft text-text-light font-sans antialiased;
+  background-image: linear-gradient(140deg, rgba(0, 123, 255, 0.12), rgba(0, 31, 63, 0.4) 40%, rgba(4, 6, 12, 0.9));
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 15% 15%, rgba(0, 123, 255, 0.28), transparent 45%),
+    radial-gradient(circle at 85% 25%, rgba(0, 123, 255, 0.14), transparent 40%),
+    radial-gradient(circle at 50% 75%, rgba(0, 123, 255, 0.22), transparent 35%);
+  z-index: -1;
+}
+
+a {
+  @apply text-brand hover:text-brand-dark transition-colors;
+}
