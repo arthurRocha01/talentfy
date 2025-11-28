@@ -2,5 +2,5 @@ export interface CreateUserDTO {
   name: string;
   email: string;
   password: string;
-  role: 'client' | 'provider';
+  role: 'CLIENT' | 'PROVIDER';
 }

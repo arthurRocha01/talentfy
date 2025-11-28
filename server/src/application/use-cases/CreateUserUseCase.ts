@@ -21,8 +21,8 @@ export class CreateUserUseCase {
     const newUser = User.createNew(data.name, email, passwordHash, data.role);
 
     // 5. Persistência
-    await this.userRepository.save(newUser);
+    const createdUser = await this.userRepository.save(newUser);
 
-    return newUser;
+    return createdUser;
   };
 }
